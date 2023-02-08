@@ -30,8 +30,10 @@ void UMover::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponent
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	AActor* Owner = GetOwner();
+	// FString Name = (*Owner).GetActorNameOrLabel();
+	FString Name = Owner->GetActorNameOrLabel();
 
-	UE_LOG(LogTemp, Display, TEXT("Mover is ticking! %u"), Owner);
+	UE_LOG(LogTemp, Display, TEXT("Mover is ticking! %u"), *Name);
 	// ...
 }
 
