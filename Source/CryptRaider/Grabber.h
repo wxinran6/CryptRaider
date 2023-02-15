@@ -29,4 +29,7 @@ private:
 	float MaxGrabDistance = 400;
 
 	void PrintDamage(float& Damage);
+
+	UPROPERTY(EditAnywhere)
+	float GrabRadius = 101;
 };
