@@ -31,5 +31,5 @@ private:
 	void PrintDamage(float& Damage);
 
 	UPROPERTY(EditAnywhere)
-	float GrabRadius = 50;
+	float GrabRadius = 100;
 };

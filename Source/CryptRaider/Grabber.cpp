@@ -56,6 +56,8 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 	{
 		AActor* HitActor = HitResult.GetActor();
 		UE_LOG(LogTemp, Display, TEXT("Hit actor: %s"), *HitActor->GetActorNameOrLabel());
+
+
 	}
 	else{
 		UE_LOG(LogTemp, Display, TEXT("No actor hit"));
