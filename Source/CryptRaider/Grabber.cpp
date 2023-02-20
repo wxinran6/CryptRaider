@@ -31,6 +31,22 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
+	
+}
+
+void UGrabber::PrintDamage(float& Damage)
+{
+	Damage = 2;
+	UE_LOG(LogTemp, Display, TEXT("Damage:%f"), Damage);
+}
+
+void UGrabber::Release()
+{
+	UE_LOG(LogTemp, Display, TEXT("Released grabber"));
+}
+
+void UGrabber::Grab()
+{
 	FRotator MyRotation = GetComponentRotation();
 	FString RotationString = MyRotation.ToCompactString();
 	UE_LOG(LogTemp, Display, TEXT("Grabber Rotation: %s"), *RotationString);
@@ -62,10 +78,4 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 	else{
 		UE_LOG(LogTemp, Display, TEXT("No actor hit"));
 	}
-}
-
-void UGrabber::PrintDamage(float& Damage)
-{
-	Damage = 2;
-	UE_LOG(LogTemp, Display, TEXT("Damage:%f"), Damage);
 }
