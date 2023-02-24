@@ -36,8 +36,11 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 		return;
 	}
 
-	FVector TargetLocation = GetComponentLocation() + GetForwardVector()*HoldDistance;
-	PhysicsHandle->SetTargetLocationAndRotation(TargetLocation, GetComponentRotation());
+	if(PhysicsHandle->GetGrabbedComponent() != nullptr)
+	{
+		FVector TargetLocation = GetComponentLocation() + GetForwardVector()*HoldDistance;
+		PhysicsHandle->SetTargetLocationAndRotation(TargetLocation, GetComponentRotation());
+	}
 }
 
 void UGrabber::PrintDamage(float& Damage)
@@ -48,7 +51,17 @@ void UGrabber::PrintDamage(float& Damage)
 
 void UGrabber::Release()
 {
-	UE_LOG(LogTemp, Display, TEXT("Released grabber"));
+	UPhysicsHandleComponent* PhysicsHandle = GetPhysicsHandle();
+	if (PhysicsHandle == nullptr)
+	{
+		return;
+	}
+
+	if (PhysicsHandle->GetGrabbedComponent() != nullptr)
+	{
+		PhysicsHandle->GetGrabbedComponent()->WakeAllRigidBodies();
+		PhysicsHandle->ReleaseComponent();
+	}
 }
 
 void UGrabber::Grab()
