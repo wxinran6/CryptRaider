@@ -47,4 +47,6 @@ private:
 
 	UPhysicsHandleComponent* GetPhysicsHandle() const;
 
+	bool GetGrabbableInReach(FHitResult& HitResult) const;
+
 };

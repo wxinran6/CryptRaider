@@ -78,21 +78,8 @@ void UGrabber::Grab()
 
 	float Time = GetWorld()->TimeSeconds;
 	UE_LOG(LogTemp, Display, TEXT("Current Time Is: %f"), Time);
-	FVector Start = GetComponentLocation();
-	FVector End = Start + GetForwardVector() * MaxGrabDistance;
-	DrawDebugLine(GetWorld(), Start, End, FColor::Red);
-	DrawDebugSphere(GetWorld(), End, 10, 10, FColor::Blue, false, 5);
-
-	float damage = 5;
-	float& damageRef = damage; 
-
-	// PrintDamage(damage);
-	// UE_LOG(LogTemp, Display, TEXT("Old Damage: %f"), damageRef);
-	FCollisionShape Sphere = FCollisionShape::MakeSphere(GrabRadius);
 	FHitResult HitResult;
-	bool HasHit = GetWorld()->SweepSingleByChannel(
-		HitResult, Start, End, FQuat::Identity, ECC_GameTraceChannel2, Sphere);
-		
+	bool HasHit = GetGrabbableInReach(HitResult);
 	if(HasHit)
 	{
 		DrawDebugSphere(GetWorld(), HitResult.Location, 10, 10, FColor::Green, false, 5);
@@ -125,4 +112,26 @@ UPhysicsHandleComponent* UGrabber::GetPhysicsHandle() const
 	}
 	return PhysicsHandle;
 	// ...
+}
+
+bool UGrabber::GetGrabbableInReach(FHitResult& HitResult) const
+{
+	FVector Start = GetComponentLocation();
+	FVector End = Start + GetForwardVector() * MaxGrabDistance;
+	DrawDebugLine(GetWorld(), Start, End, FColor::Red);
+	DrawDebugSphere(GetWorld(), End, 10, 10, FColor::Blue, false, 5);
+
+	float damage = 5;
+	float& damageRef = damage; 
+
+	// PrintDamage(damage);
+	// UE_LOG(LogTemp, Display, TEXT("Old Damage: %f"), damageRef);
+	FCollisionShape Sphere = FCollisionShape::MakeSphere(GrabRadius);
+
+	// bool HasHit = GetWorld()->SweepSingleByChannel(
+	// 	HitResult, Start, End, FQuat::Identity, ECC_GameTraceChannel2, Sphere);
+
+	// return HasHit;
+	return GetWorld()->SweepSingleByChannel(
+		HitResult, Start, End, FQuat::Identity, ECC_GameTraceChannel2, Sphere);
 }
