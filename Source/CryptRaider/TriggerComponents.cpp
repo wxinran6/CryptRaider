@@ -9,7 +9,7 @@ UTriggerComponents::UTriggerComponents()
 	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = true;
 
-	// UE_LOG(LogTemp, Display, TEXT("Constructiong"));
+	UE_LOG(LogTemp, Display, TEXT("Constructiong"));
 
 	// ...
 }
@@ -27,5 +27,12 @@ void UTriggerComponents::TickComponent(float DeltaTime, ELevelTick TickType, FAc
 
 	// UE_LOG(LogTemp, Display, TEXT("Tick componenets alive"));
 
+	TArray<AActor*> Actors;
+	GetOverlappingActors(Actors);
 
+	if (Actors.Num() > 0)
+	{
+		FString ActorName = Actors[0]->GetActorNameOrLabel();
+		UE_LOG(LogTemp, Display, TEXT("Overlapping: %s"), *ActorName);
+	}
 }
