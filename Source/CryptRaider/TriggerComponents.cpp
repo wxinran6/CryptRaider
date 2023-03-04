@@ -36,11 +36,20 @@ void UTriggerComponents::TickComponent(float DeltaTime, ELevelTick TickType, FAc
 	// 	UE_LOG(LogTemp, Display, TEXT("Overlapping: %s"), *ActorName);
 	// }
 
-	int32 index = 0;
-	while (index < Actors.Num())
+	// int32 index = 0;
+	// while (index < Actors.Num())
+	// {
+	// 	FString ActorName = Actors[index]->GetActorNameOrLabel();
+	// 	UE_LOG(LogTemp, Display, TEXT("Overlapping: %s"), *ActorName);
+	// 	++index;
+	// }
+
+	for (AActor* Actor: Actors)
 	{
-		FString ActorName = Actors[index]->GetActorNameOrLabel();
-		UE_LOG(LogTemp, Display, TEXT("Overlapping: %s"), *ActorName);
-		++index;
+		// FString ActorName = Actor->GetActorNameOrLabel();
+		if (Actor->ActorHasTag(AcceptableActorTag))
+		{
+			UE_LOG(LogTemp, Display, TEXT("unlocking"));
+		}
 	}
 }
