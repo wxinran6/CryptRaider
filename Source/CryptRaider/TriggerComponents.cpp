@@ -30,11 +30,21 @@ void UTriggerComponents::TickComponent(float DeltaTime, ELevelTick TickType, FAc
 	AActor* Actor = GetAcceptableActor();
 	if (Actor != nullptr)
 	{
-		UE_LOG(LogTemp, Display, TEXT("Unlocking"));
+		// UE_LOG(LogTemp, Display, TEXT("Unlocking"));
+		UPrimitiveComponent* Component = Cast<UPrimitiveComponent>(Actor->GetRootComponent());
+		if (Component != nullptr)
+		{
+			Component->SetSimulatePhysics(false);
+		}
+		Actor->AttachToComponent(this,FAttachmentTransformRules::KeepWorldTransform);
+		Mover->SetShouldMove(true);
+
 	}
 	else
 	{
-		UE_LOG(LogTemp, Display, TEXT("Relocking"));
+		// UE_LOG(LogTemp, Display, TEXT("Relocking"));
+		Mover->SetShouldMove(false);
+
 	}
 }
 
@@ -65,4 +75,10 @@ AActor* UTriggerComponents::GetAcceptableActor() const
 		}
 	}
 	return nullptr;
+}
+
+
+void UTriggerComponents::SetMover(UMover* NewMover)
+{
+	Mover = NewMover;
 }
