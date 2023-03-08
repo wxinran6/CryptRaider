@@ -52,12 +52,18 @@ void UGrabber::PrintDamage(float& Damage)
 void UGrabber::Release()
 {
 	UPhysicsHandleComponent* PhysicsHandle = GetPhysicsHandle();
-	if (PhysicsHandle == nullptr)
-	{
-		return;
-	}
 
-	if (PhysicsHandle->GetGrabbedComponent() != nullptr)
+	// can omit the nullptr
+	// if (PhysicsHandle == nullptr)
+	// {
+	// 	return;
+	// }
+
+	// if (PhysicsHandle->GetGrabbedComponent() != nullptr)
+	// {
+
+	// evaluate the left hand first, if false, will not evalute the right side
+	if (PhysicsHandle && PhysicsHandle->GetGrabbedComponent())
 	{
 		PhysicsHandle->GetGrabbedComponent()->WakeAllRigidBodies();
 		AActor* GrabbedActor = PhysicsHandle->GetGrabbedComponent()->GetOwner();
