@@ -65,7 +65,7 @@ void UGrabber::Release()
 	// evaluate the left hand first, if false, will not evalute the right side
 	if (PhysicsHandle && PhysicsHandle->GetGrabbedComponent())
 	{
-		PhysicsHandle->GetGrabbedComponent()->WakeAllRigidBodies();
+		// PhysicsHandle->GetGrabbedComponent()->WakeAllRigidBodies();
 		AActor* GrabbedActor = PhysicsHandle->GetGrabbedComponent()->GetOwner();
 		GrabbedActor->Tags.Remove("Grabbed");
 		PhysicsHandle->ReleaseComponent();
